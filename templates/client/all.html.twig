@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Home!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>Liste Client</h2>
+        <small><a href="{{ path('Ajouter') }}" class="btn btn-primary">ADD</a></small>
+    </div>
+    <table class="table table-hover table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Nombre de Personne</th>
+                <th>Email</th>
+                <th>Date Arrivée</th>
+                <th>Date Depart</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for c in clients %}
+            <tr>
+                <td>{{ c.id }}</td>
+                <td>{{ c.nom }}</td>
+                <td>{{ c.nbrPersonne }}</td>
+                <td>{{ c.email }}</td>
+                <td>{{ c.getdateArr()|date('d/m/Y') }}</td>
+                <td>{{ c.getdateDep()|date('d/m/Y') }}</td>
+                <td>
+                    {% if c.getImage() is not null %}
+                        <img src="{{ publicPath ~ c.getImage }}" height="100">
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('show_client', {'id': c.id }) }}">Details</a>
+                    <a class="btn btn-success" href="{{ path('update_client', {'id': c.id }) }}">Update</a>
+                    <a class="btn btn-danger" href="{{ path('delete_client', {'id': c.id }) }}"
+                       onclick="return confirm('Are you sure to delete! {{ c.nom }}')">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

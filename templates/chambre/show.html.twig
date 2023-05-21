@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block titre %}
+    {{ parent()|upper }}:<br>
+    {{ chambre.getNomChambre() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+     <style>
+   .cont {
+    margin-left: 550px;
+   }
+        .custom-card {
+            width: 400px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="container cont">
+    <div class="card  custom-card">
+        <img src="{{ publicPath ~ chambre.getImage }}" class="card-img-top img-fluid" alt="Image Chambre" style="max-height: 300px; object-fit: contain;">
+        <div class="card-body d-flex flex-column align-items-center">
+            <h2 class="card-title">{{ chambre.getNomChambre() }}</h2>
+            <h5 class="card-subtitle mb-2 text-muted">Type: {{ chambre.getCapacite() }}</h5>
+            <h5 class="card-subtitle mb-2 text-muted">Players: {{ chambre.getPrix() }}</h5>
+            <h5 class="card-subtitle mb-2 text-muted">Editeur: {{ chambre.getAdresse() }}</h5>
+        </div>
+    </div>
+
+    </div>
+    <div class="container">
+    <h4 class="mt-4">Client</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Nombre Personne</th>
+                <th>Email</th>
+                <th>Date Arrivée</th>
+                <th>Date Départ</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in client %}
+                <tr>
+                    <td>{{ c.nom }}</td>
+                    <td>{{ c.nbrPersonne }}</td>
+                    <td>{{ c.email }}</td>
+                    <td>{{ c.dateArr }}</td>
+                    <td>{{ c.dateDep }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+{% endblock %}
