@@ -20,7 +20,7 @@ class ChambreHoteController extends AbstractController
     {
         $this->requestStack = $requestStack;
     }
-    #[Route('/chambreHote', name: 'app_chambre_hote')]
+    #[Route('/chambre', name: 'app_chambre_hote')]
     public function index(): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
@@ -42,7 +42,7 @@ class ChambreHoteController extends AbstractController
         $image = $chambre->getImage();
         dump($image->getUrl());
 
-        return $this->render('chambre_hote/index.html.twig', [
+        return $this->render('chambre/index.html.twig', [
             'id' => $chambre->getId(),
             'nomChambre' => $chambre->getNomChambre(),
             'capacite' => $chambre->getCapacite(),
@@ -81,40 +81,38 @@ public function findAll(Request $request)
  }
 
 
-
  #[Route('/ajouterChambreHote', name: 'AjouterChambreHote')]
  public function ajouter(Request $request)
- { $publicPath ="uploads/chambres/";
-   $chambre = new ChambreHote();
-
-
-     $form = $this -> createForm("App\Form\ChambreHoteType",$chambre);
-     $form->handleRequest($request);   
-     if($form->isSubmitted())
-     {
-     /*
-     * @var UploadedFile $image
-     */
-
-$image = $form->get('image')->getData();
-
-$em=$this->getDoctrine()->getManager();
-if($image){
- $imageName = $chambre->getId().'.'. $image->guessExtension();
- $image->move($publicPath,$imageName);
- $chambre->setImage($imageName);
-}
-$em->persist($chambre);
-$em->flush();
-return $this->redirectToRoute('find_allChambreHotes');
-
-}
-
-return $this->render('chambre/ajouter.html.twig',
-
-['titre'=>'Add','f'=> $form->createView()]);
-}
-
+ {
+     $publicPath = "uploads/chambres/";
+     $chambre = new ChambreHote();
+ 
+     $form = $this->createForm(ChambreHoteType::class, $chambre);
+     $form->handleRequest($request);
+ 
+     if ($form->isSubmitted() && $form->isValid()) {
+         $image = $form->get('image')->getData();
+ 
+         $em = $this->getDoctrine()->getManager();
+         
+         if ($image) {
+             $imageName = uniqid().'.'.$image->guessExtension();
+             $image->move($publicPath, $imageName);
+             $chambre->setImage($imageName);
+         }
+ 
+         $em->persist($chambre);
+         $em->flush();
+ 
+         return $this->redirectToRoute('find_allChambreHotes');
+     }
+ 
+     return $this->render('chambre/ajouter.html.twig', [
+         'titre' => 'Add',
+         'f' => $form->createView()
+     ]);
+ }
+ 
 #[Route('/delete/{id}', name: 'delete_chambre')]
 public function delete(Request $request,$id):Response
 {
@@ -148,8 +146,6 @@ throw $this->createNotFoundException(
 }   
 if ($chambre->getImage()){
 $imagePath = $this->getParameter('kernel.project_dir') . "\\public\\uploads\\chambres\\" . $chambre->getImage();
-
-dump( '---', $chambre->getImage(), $imagePath);
 $chambre->setImage(
 new File($imagePath));}
 $form = $this ->createForm("App\Form\ChambreHoteType",$chambre);

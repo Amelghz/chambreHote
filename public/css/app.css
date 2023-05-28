@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+    background-color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    margin: 2rem;
+}
+
+
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+    padding: 10px; /* Augmenter la valeur de padding pour agrandir les cellules du tableau */
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 14px; /* Augmenter la valeur de font-size pour agrandir la taille du texte */
+}
+
+/* Ajouter une règle de media query pour rendre l'affichage plus responsive */
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+    }
+    .table-responsive > .table {
+        width: 100%;
+        margin-bottom: 0;
+    }
+    .table-responsive > .table > thead > tr > th,
+    .table-responsive > .table > tbody > tr > th,
+    .table-responsive > .table > tfoot > tr > th,
+    .table-responsive > .table > thead > tr > td,
+    .table-responsive > .table > tbody > tr > td,
+    .table-responsive > .table > tfoot > tr > td {
+        white-space: nowrap;
+    }
+}
+
+
+.btn-primary {
+  color: #fff;
+  background-color: #47b817!important;
+  border-color: #3cff00;
+}
+
+.btn-success {
+  color: #fff;
+  background-color: orangered;
+  border-color: orangered;
+}
+.btn-danger {
+  color: #fff;
+  background-color: firebrick;
+  border-color: firebrick;
+
+}
+.text-center {
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    background-color: #000;
+    padding: 4rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+h1:hover {
+    transition: 0.2s all ease-in-out;
+    color: #381245;
+    background: #ffffff;
+    text-shadow: 0 3px 23px rgb(18 44 69 / 40%);
+}
+
+.my-form-class {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.my-input-class {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.my-form-class label {
+    display: block;
+}
+
+.my-form-class input[type="submit"] {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.card-body {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 2rem 1.25rem 0; /* Adjust the top padding value to move the rectangle down */
+  background-color: #f7f7f7;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ 
+ 
+}
+
+.card {
+  
+  margin-top: 10rem;
+}
+
+
+.card-body h2 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.card-body p {
+  font-size: 14px;
+  color: #666;
+}
+
+.justify-content-center {
+    margin-bottom: 10rem;
+}
+
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #e5eaef;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+
+.card-body h2 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.card-body p {
+  font-size: 14px;
+  color: #666;
+}

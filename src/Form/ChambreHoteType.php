@@ -17,7 +17,7 @@ class ChambreHoteType extends AbstractType
             ->add('nomChambre')
             ->add('capacite')
             ->add('prix')
-            ->add('image', FileType::class)//, array('data_class' => null)
+            ->add('image', FileType::class, array('data_class' => null))
             ->add('adresse')
             ->add('Valider', SubmitType::class)
         ;

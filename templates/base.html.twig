@@ -1,19 +1,96 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><text y='1.2em' font-size='96'>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" />
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    <style>
+        .body-background {
+            background-image: url('{{ asset('images/ok.jpg') }}');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        .MM {
+            margin-left: 5px;
+            color: #fff;
+            background-color: #333;
+            border-color: black;
+        }
+        .container-fluid {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+            /* background-color: rgba(255, 255, 255, 0.5); */
+            overflow: hidden;
+        }
+        .scrolling-content {
+            white-space: nowrap;
+            animation: scrollBackground 30s linear infinite;
+           /* background-color: rgba(255, 255, 255, 0.5); */
+        }
+        .bg-info {
+            background-color: rgba(0,0,0,.5)!important;
+        }
+        @keyframes scrollBackground {
+            0% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .h2, h2 {
+            font-size: 30px;
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            font-size: 2rem;
+            color: darkorange;
+          }
+
+    </style>
+
+    {% block javascripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            var scrollingContent = document.querySelector('.scrolling-content');
+            var scrollSpeed = 1; // Vitesse de défilement du contenu (modifiable)
+
+            function updateScrollPosition() {
+                scrollingContent.style.transform = 'translateX(' + (-scrollSpeed) + 'px)';
+            }
+
+            setInterval(updateScrollPosition, 50); // Intervalle de mise à jour du défilement (modifiable)
+        });
+    </script>
+    {% endblock %}
+</head>
+<body class="body-background">
+    <h1 class="text-center">{% block titre %}Bienvenue à la Chambre d'Hôte "مرحبًا" {% endblock %}</h1>
+    <a class="btn btn-success ml-auto MM" href="{{ path('find_allChambreHotes') }}">Gestion Chambres</a>
+    <span class="separator">   </span>
+    <a class="btn btn-success MM" href="{{ path('find_all') }}">Gestion Clients</a>
+    <span class="separator">   </span>
+    <a class="btn btn-success MM" href="{{ path('security_logout') }}">Déconnecter</a>
+
+    <nav class="navbar bg-info scrolling-content">
+        <div class="container-fluid">
+            <a class="navbar-brand"></a>
+            <div class="d-flex justify-content-end ">
+                <h2>WELCOME TO ESPRIT-MONASTIR</h2>
+            </div>
+        </div>
+    </nav>
+
+    {% block body %}{% endblock %}
+</body>
 </html>

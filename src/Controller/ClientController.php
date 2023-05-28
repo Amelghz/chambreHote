@@ -22,9 +22,8 @@ class ClientController extends AbstractController
     {
         $this->requestStack = $requestStack;
     }
-
     #[Route('/client', name: 'app_client')]
-    public function index($chambreId): Response
+    public function index($chambreId= null): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $client = new Client();
@@ -40,12 +39,10 @@ class ClientController extends AbstractController
         $imageUrl = $baseUrl . '/' . $imagePath;   
         $image = new Image();
         $image->setUrl($imageUrl);
-
         $image->setAlt('client');
         $client->setImage($image);
         $entityManager->persist($client);
         $entityManager->flush();
-
         return $this->render('client/index.html.twig', [
             'id' => $client->getId(),
             'nom' => $client->getNom(),
@@ -56,8 +53,6 @@ class ClientController extends AbstractController
             'image' => $client->getImage(),
         ]);
     }
-
-
  #[Route('/client/{id}', name: 'show_client')]
     public function show($id, Request $request) 
     {    $client = $this->getDoctrine() ->getRepository(Client::class) ->find($id);
@@ -170,4 +165,13 @@ return $this->render('client/ajouter.html.twig',
 }
 
 
+#[Route('/home', name: 'home')]
+public function home(): Response
+{
+    $entityManager = $this->getDoctrine()->getManager();
+   
+    return $this->render('home.html.twig', [
+        'controller_name' => 'ClientController',
+    ]);
+}
 }

@@ -1,22 +1,47 @@
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello Home!{% endblock %}
+{% block title %}Liste de chambres!{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
+   
+{{ parent() }}
+ 
+  
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+ 
+    <style>
+    
+        h3 {
+            font-size: 1.75rem;
+            color:#007bff;
+            text-align: right;
+          }
+
+          .button-cell {
+            white-space: nowrap;
+        }
+        
+        .button-cell .btn {
+            display: inline-block;
+            margin-right: 5px;
+        }
+        
+    </style>
+
 {% endblock %}
 
 {% block body %}
 <div class="container">
-    <div class="d-flex justify-content-between align-items-center">
-        <h2>List ChambreHote</h2>
-        <a href="{{ path('AjouterChambreHote') }}" class="btn btn-primary">ADD</a>
-    </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 style="flex-grow: 1; text-align: right; margin-right: 10px;">Liste de chambres</h3>
+           
+            <a href="{{ path('AjouterChambreHote') }}" class="btn btn-primary">Ajouter</a>
+        </div>
     <table class="table table-hover table-striped">
         <thead class="thead-dark">
             <tr>
-                <th>#</th>
+                <th>id</th>
                 <th>nomChambre</th>
                 <th>capacite</th>
                 <th>prix</th>
@@ -26,23 +51,24 @@
             </tr>
         </thead>
         <tbody>
-        {% for g in chambres %}
+        {% for c in chambres %}
             <tr>
-                <td>{{ g.id }}</td>
-                <td>{{ g.nomChambre}}</td>
-                <td>{{ g.capacite }}</td>
-                <td>{{ g.prix }}</td>
-                <td>{{ g.adresse }}</td>
+                <td>{{ c.id }}</td>
+                <td>{{ c.nomChambre}}</td>
+                <td>{{ c.capacite }}</td>
+                <td>{{ c.prix }}</td>
+                <td>{{ c.adresse }}</td>
                 <td>
-                    {% if g.getImage() is not null %}
-                        <img src="{{ publicPath ~ g.getImage }}" height="100">
+                    {% if c.getImage() is not null %}
+                        <img src="{{ publicPath ~ c.getImage }}" height="100">
                     {% endif %}
                 </td>
-                <td>
-                    <a class="btn btn-primary" href="{{ path('chambre_show', {'id': g.id }) }}">Details</a>
-                    <a class="btn btn-success" href="{{ path('update_chambre', {'id': g.id }) }}">Update</a>
-                    <a class="btn btn-danger" href="{{ path('delete_chambre', {'id': g.id }) }}"
-                       onclick="return confirm('Are you sure to delete! {{ g.nomChambre }}')">Delete</a>
+                <td class="button-cell">
+                    <a class="btn btn-primary" href="{{ path('chambre_show', {'id': c.id }) }}">Détails</a>
+                    <a class="btn btn-success" href="{{ path('update_chambre', {'id': c.id }) }}">Modifier</a>
+                    <a class="btn btn-danger" href="{{ path('delete_chambre', {'id': c.id }) }}"
+                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer! {{ c.nomChambre }}')">
+                       Supprimer</a>
                 </td>
             </tr>
         {% endfor %}
