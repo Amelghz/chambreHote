@@ -28,10 +28,10 @@ class Client
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateDep = null;
-
+/*
     #[ORM\Column(length: 255)]
     private ?string $image = null;
-
+*/
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?ChambreHote $ChambreHote = null;
@@ -100,7 +100,7 @@ class Client
 
         return $this;
     }
-
+/*
     public function getImage()
     {
         return $this->image;
@@ -112,7 +112,7 @@ class Client
 
         return $this;
     }
-
+*/
     public function getChambreHote(): ?ChambreHote
     {
         return $this->ChambreHote;

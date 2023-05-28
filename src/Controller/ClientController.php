@@ -34,13 +34,13 @@ class ClientController extends AbstractController
         $client->setDateArr(new \DateTimeImmutable());
         $client->setDateDep(new \DateTimeImmutable());
         $client->setChambreHote($chambre);
-        $imagePath = '/public/images/client.jpg';
+        /*$imagePath = '/public/images/client.jpg';
         $baseUrl = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost();
         $imageUrl = $baseUrl . '/' . $imagePath;   
         $image = new Image();
         $image->setUrl($imageUrl);
         $image->setAlt('client');
-        $client->setImage($image);
+        $client->setImage($image); */
         $entityManager->persist($client);
         $entityManager->flush();
         return $this->render('client/index.html.twig', [
@@ -50,7 +50,7 @@ class ClientController extends AbstractController
             'email' => $client->getEmail(),
             'dateArr'=> $client->getDateArr()->format('Y-m-d'),
             'dateDep'=> $client->getDateDep()->format('Y-m-d'),
-            'image' => $client->getImage(),
+            /*'image' => $client->getImage(),*/
         ]);
     }
  #[Route('/client/{id}', name: 'show_client')]
@@ -88,14 +88,15 @@ class ClientController extends AbstractController
             * @var UploadedFile $image
             */
 
-      $image = $form->get('image')->getData();
+     // $image = $form->get('image')->getData();
 
     $em=$this->getDoctrine()->getManager();
-    if($image){
+    
+    /*if($image){
         $imageName = $client->getId().'.'. $image->guessExtension();
         $image->move($publicPath,$imageName);
         $client->setImage($imageName);
-    }
+    }*/
     $em->persist($client);
     $em->flush();
 return $this->redirectToRoute('find_all');
@@ -136,10 +137,12 @@ throw $this->createNotFoundException(
 'No client found for id '.$id
 );
 }
+/*
 if ($client->getImage()) {
 $imagePath = $this->getParameter('kernel.project_dir') . "\\public\\uploads\\clients\\" . $client->getImage();
 $client->setImage(
     new File($imagePath));}
+*/
 $form = $this -> createForm("App\Form\ClientType",$client);
 $form->handleRequest($request);   
 if($form->isSubmitted())
@@ -148,14 +151,14 @@ if($form->isSubmitted())
   * @var UploadedFile $image
   */
 
-  $image = $form->get('image')->getData();
+  //$image = $form->get('image')->getData();
 
 $em=$this->getDoctrine()->getManager();
-if($image){
+/*if($image){
     $imageName = $client->getId().'.'. $image->guessExtension();
     $image->move($publicPath,$imageName);
     $client->setImage($imageName);
-}
+}*/
 $em->persist($client);
 $em->flush();
 return $this->redirectToRoute('find_all');

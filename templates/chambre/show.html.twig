@@ -30,9 +30,9 @@
         <img src="{{ publicPath ~ chambre.getImage }}" class="card-img-top img-fluid" alt="Image Chambre" style="max-height: 300px; object-fit: contain;">
         <div class="card-body d-flex flex-column align-items-center">
             <h2 class="card-title">{{ chambre.getNomChambre() }}</h2>
-            <h5 class="card-subtitle mb-2 text-muted">Type: {{ chambre.getCapacite() }}</h5>
-            <h5 class="card-subtitle mb-2 text-muted">Players: {{ chambre.getPrix() }}</h5>
-            <h5 class="card-subtitle mb-2 text-muted">Editeur: {{ chambre.getAdresse() }}</h5>
+            <h5 class="card-subtitle mb-2 text-muted">Capacité: {{ chambre.getCapacite() }}</h5>
+            <h5 class="card-subtitle mb-2 text-muted">Prix: {{ chambre.getPrix() }}</h5>
+            <h5 class="card-subtitle mb-2 text-muted">Adresse: {{ chambre.getAdresse() }}</h5>
         </div>
     </div>
 
@@ -56,8 +56,8 @@
                     <td>{{ c.nom }}</td>
                     <td>{{ c.nbrPersonne }}</td>
                     <td>{{ c.email }}</td>
-                    <td>{{ c.dateArr }}</td>
-                    <td>{{ c.dateDep }}</td>
+                    <td>{{ c.dateArr|date('Y-m-d') }}</td>
+                    <td>{{ c.dateDep|date('Y-m-d') }}</td>
                 </tr>
             {% endfor %}
         </tbody>

@@ -15,7 +15,7 @@
             /* align-items: center; */
             overflow: hidden;
         }
-        .player-image {
+        .chambre-image {
             max-width: 200px;
         }
         .custom-card {
@@ -34,15 +34,15 @@
 <div class="container center-card">
     <div class="card custom-card">
         <div class="card-body">
-            <h2 class="card-title">Name: {{ client.getNom() }}</h2>
-            <h5 class="card-subtitle mb-2 text-muted">Score: {{ client.getNbrPersonne() }}</h5>
+            <h2 class="card-title">Nom: {{ client.getNom() }}</h2>
+            <h5 class="card-subtitle mb-2 text-muted">Id: {{ client.getNbrPersonne() }}</h5>
             <h5 class="card-subtitle mb-2 text-muted">Email: {{ client.getEmail() }}</h5>
-            <h5 class="card-subtitle mb-2 text-muted">Born at: {{ client.getDateArr()|date('Y-m-d') }}</h5>
-            <h5 class="card-subtitle mb-2 text-muted">Born at: {{ client.getDateDep()|date('Y-m-d') }}</h5>
-            
-            {% if client.Image is not null %}
-                <img src="{{ publicPath ~ client.getImage }}" class="card-img-top img-fluid player-image" alt="Player Image">
-            {% endif %}
+            <h5 class="card-subtitle mb-2 text-muted">Date d'arrivée: {{ client.getDateArr()|date('Y-m-d') }}</h5>
+            <h5 class="card-subtitle mb-2 text-muted">Date de départ: {{ client.getDateDep()|date('Y-m-d') }}</h5>
+            {# Commenting out the Image section #}
+            {# {% if client.Image is not null %}#}
+            {# <img src="{{ publicPath ~ client.getImage }}" class="card-img-top img-fluid chambre-image" alt="Chambre Image">#}
+            {#{% endif %}-->#}
         </div>
     </div>
 </div>

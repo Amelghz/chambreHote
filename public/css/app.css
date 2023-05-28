@@ -41,12 +41,12 @@ body {
 }
 
 
+
 .btn-primary {
   color: #fff;
-  background-color: #47b817!important;
-  border-color: #3cff00;
+  background-color: #007bff!important;
+  border-color: #007bff;
 }
-
 .btn-success {
   color: #fff;
   background-color: orangered;

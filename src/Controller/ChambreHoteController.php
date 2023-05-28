@@ -135,43 +135,59 @@ return $this->redirectToRoute('find_allChambreHotes');
 }
 #[Route('/updateChambreHote/{id}', name: 'update_chambre', methods: ['GET', 'POST'])]
 public function edit(Request $request, $id)
-{ 
-$publicPath ="uploads/chambres/";
-$chambre = new ChambreHote();
-$chambre = $this->getDoctrine()->getRepository(ChambreHote::class)->find($id);
-if (!$chambre) {
-throw $this->createNotFoundException(
-'No ChambreHote found for id '.$id
-);
-}   
-if ($chambre->getImage()){
-$imagePath = $this->getParameter('kernel.project_dir') . "\\public\\uploads\\chambres\\" . $chambre->getImage();
-$chambre->setImage(
-new File($imagePath));}
-$form = $this ->createForm("App\Form\ChambreHoteType",$chambre);
-$i = $form->get('image');
-dump($i, 'image');
-$form->handleRequest($request);   
-if($form->isSubmitted())
 {
-/*
-* @var UploadedFile $image
-*/
+    $publicPath = "uploads/chambres/";
+    $chambre = $this->getDoctrine()->getRepository(ChambreHote::class)->find($id);
 
-$image = $form->get('image')->getData();
+    if (!$chambre) {
+        throw $this->createNotFoundException('No ChambreHote found for id ' . $id);
+    }
 
-$em=$this->getDoctrine()->getManager();
-if($image){
-$imageName = $chambre->getId().'.'. $image->guessExtension();
-$image->move($publicPath,$imageName);
-$chambre->setImage($imageName);
-}
-$em->persist($chambre);
-$em->flush();
-return $this->redirectToRoute('find_allChambreHotes');
-}
-return $this->render('chambre/ajouter.html.twig',
-['titre'=>'Update','f' => $form->createView()] );
+    // Récupérer le chemin de l'image actuelle
+    $currentImagePath = $chambre->getImage();
+
+    // Créer le formulaire en utilisant la chambre d'hôtes existante
+    $form = $this->createForm(ChambreHoteType::class, $chambre);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Récupérer le fichier de l'image
+        $imageFile = $form->get('image')->getData();
+
+        if ($imageFile) {
+            // Supprimer l'image actuelle
+            if ($currentImagePath) {
+                $currentImageFullPath = $this->getParameter('kernel.project_dir') . '/public/' . $publicPath . $currentImagePath;
+                if (file_exists($currentImageFullPath)) {
+                    unlink($currentImageFullPath);
+                }
+            }
+
+            // Générer un nouveau nom de fichier unique
+            $newImageName = uniqid() . '.' . $imageFile->guessExtension();
+
+            // Déplacer le fichier vers le répertoire des images
+            $imageFile->move($publicPath, $newImageName);
+
+            // Mettre à jour le chemin de l'image dans la chambre d'hôtes
+            $chambre->setImage($newImageName);
+        } else {
+            // Si aucun fichier n'est fourni, rétablir le chemin de l'image existante
+            $chambre->setImage($currentImagePath);
+        }
+
+        // Enregistrer les modifications dans la base de données
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($chambre);
+        $em->flush();
+
+        return $this->redirectToRoute('find_allChambreHotes');
+    }
+
+    return $this->render('chambre/ajouter.html.twig', [
+        'titre' => 'Update',
+        'f' => $form->createView()
+    ]);
 }
 
 

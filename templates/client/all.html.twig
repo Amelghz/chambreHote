@@ -21,6 +21,11 @@
             display: inline-block;
             margin-right: 5px;
         }
+        .btn-primary {
+            color: #fff;
+            background-color: #007bff!important;
+            border-color: #007bff;
+          }
         
     </style>
 
@@ -42,7 +47,7 @@
                 <th>Email</th>
                 <th>Date Arrivée</th>
                 <th>Date Depart</th>
-                <th>Image</th>
+                <!--  <th>Image</th>  -->
                 <th>Actions</th>
             </tr>
         </thead>
@@ -55,11 +60,15 @@
                 <td>{{ c.email }}</td>
                 <td>{{ c.getdateArr()|date('d/m/Y') }}</td>
                 <td>{{ c.getdateDep()|date('d/m/Y') }}</td>
-                <td>
-                    {% if c.getImage() is not null %}
-                        <img src="{{ publicPath ~ c.getImage }}" height="100">
-                    {% endif %}
-                </td>
+                
+                {# partie commentaire #}
+                {#  <td> #}
+                    {# {% if c.getImage() is not null %} #}
+                    {#   <img src="{{ publicPath ~ c.getImage }}" height="100">#}
+                    {# {% endif %}#}
+                    {#  </td> #}
+                   
+                
                 <td class="button-cell">
                     <a class="btn btn-primary" href="{{ path('show_client', {'id': c.id }) }}">Details</a>
                     <a class="btn btn-success" href="{{ path('update_client', {'id': c.id }) }}">Modifier</a>

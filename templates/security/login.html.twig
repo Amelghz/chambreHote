@@ -15,24 +15,24 @@
             margin-bottom: 10px;
         }
 
-              
         .card-body h2 {
             font-size: 18px;
             color: #333;
             margin-bottom: 10px;
-            text-align:center;
+            text-align: center;
         }
-        
-          
-        
-        
+
+        /* Ajouter le style personnalisé pour ajuster la largeur des champs de saisie */
+        .login-form .custom-input {
+            width: 100%;
+        }
     </style>
 {% endblock %}
 
 {% block body %}
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title">Sign In</h2>
@@ -42,14 +42,14 @@
                     <form action="{{ path('login') }}" method="post" class="login-form">
                         <div class="form-group">
                             <label for="username" class="form-label">Username:</label>
-                            <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control">
+                            <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control custom-input">
                         </div>
                         <div class="form-group">
                             <label for="password" class="form-label">Password:</label>
-                            <input type="password" id="password" name="_password" class="form-control">
+                            <input type="password" id="password" name="_password" class="form-control custom-input">
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
-                        <a href="{{ path('user_registration') }}" class="btn btn-secondary ">Sign Up</a>
+                        <a href="{{ path('user_registration') }}" class="btn btn-secondary">Sign Up</a>
                     </form>
                 </div>
             </div>

@@ -20,7 +20,8 @@ class ClientType extends AbstractType
             ->add('email')
             ->add('dateArr')
             ->add('dateDep')
-            ->add('image', FileType::class, array('data_class' => null))
+            // Commenting out the Image field
+            //->add('image', FileType::class, array('data_class' => null))
             ->add('ChambreHote',EntityType::class,[
                 'class'=> ChambreHote::class,
                 'choice_label'=> 'nomChambre'
